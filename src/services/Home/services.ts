@@ -68,3 +68,16 @@ export const editVehicle = async (id:number, plate:String, renevam:String, color
     throw error.response?.data || new Error('Ocorreu um erro ao realizar o login');
   }
 };
+
+
+export const setRefuel = async (id:number, amount: number,  fuelType: string, price: number )=> {
+  const api = createApiInstance();
+
+  try {
+    const response = await api.post(`/refueling/vehicle/${id}`, { amount, fuelType, price });
+    // Substitua '/login' pelo endpoint correto da sua API
+    return response.data;
+  } catch (error:any) {
+    throw error.response?.data || new Error('Ocorreu um erro ao realizar o login');
+  }
+};

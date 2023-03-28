@@ -6,6 +6,7 @@ import { VehicleDataGrid } from "../../components/DataGrid";
 import { Header } from "../../components/Header";
 import { ConfirmDeleteModal } from "../../components/modals/ConfirmDeleteModal";
 import { EditVehicleModal } from "../../components/modals/EditVehicleModal";
+import { FuelFormModal } from "../../components/modals/FuelFormModal";
 import { VehicleFormModal } from "../../components/modals/VehicleFormModal";
 import { deleteVehicle, getUserVehicle } from "../../services/Home/services";
 import './style.css'
@@ -15,6 +16,7 @@ export function Home() {
   const [isAuthChecked, setIsAuthChecked] = useState(false);
   const [userVehicles, setUserVehicles] = useState([]); // Adicionar estado para armazenar os veículos do usuário
   const [openModal, setOpenModal] = useState(false);
+  const [openRefueModal, setOpenRefuelModal] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [editModalOpen, setEditdalOpen] = useState(false);
 
@@ -67,6 +69,9 @@ export function Home() {
   const handleOpenModal = () => {
     setOpenModal(true);
   };
+  const handleOpenRefuelModal = () => {
+    setOpenRefuelModal(true);
+  };
 
   const handleEditModal = () => {
     setEditdalOpen(true);
@@ -76,11 +81,13 @@ export function Home() {
   const handleEditCloseModal = () => {
     setEditdalOpen(false);
   };
+  const handleRefuelCloseModal = () => {
+    setOpenRefuelModal(false);
+  };
   const handleCloseModal = () => {
     setOpenModal(false);
   };
 
-  console.log(selectedVehicleIds.length)
   const test = async () => {
     const fetchedUserVehicles = await getUserVehicle();
     setUserVehicles(fetchedUserVehicles);
@@ -117,13 +124,16 @@ export function Home() {
 
   return (
     <div>
-      <Header />
       <div className="grid">
         <VehicleDataGrid vehicles={userVehicles} onVehicleSelect={handleVehicleSelect} />
       </div>
 
 
       <VehicleFormModal open={openModal} onClose={handleCloseModal} onRefresh={test} />
+
+
+      <FuelFormModal open={openRefueModal} onClose={handleRefuelCloseModal} id={selectedVehicleIds} />
+
 
       <div className="buttons">
 
@@ -140,6 +150,11 @@ export function Home() {
           Editar
         </Button>
 
+        <Button variant="contained" color="warning" disabled={selectedVehicleIds.length == 0}
+          onClick={handleOpenRefuelModal}>
+          Abastecer
+        </Button>
+
 
         <ConfirmDeleteModal
           open={deleteModalOpen}
@@ -150,6 +165,13 @@ export function Home() {
         />
 
 
+        <ConfirmDeleteModal
+          open={deleteModalOpen}
+          onClose={handleCloseDeleteModal}
+          onSubmit={handleDeleteVehicle}
+          message="Tem certeza de que deseja apagar o veículo selecionado?"
+          buttonText="Cancelar"
+        />
 
         <EditVehicleModal open={editModalOpen} onClose={handleEditCloseModal} onRefresh={test} id={selectedVehicleIds} />
       </div>

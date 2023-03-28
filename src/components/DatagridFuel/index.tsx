@@ -1,35 +1,31 @@
 // components/VehicleDataGrid.tsx
 import * as React from 'react';
-import { DataGrid, GridColDef, GridRenderCellParams, GridRowId } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRowId } from '@mui/x-data-grid';
 import moment from "moment";
 
 
-interface Vehicle {
-  id: number;
-  brand: string;
+interface Fuel {
   model: string;
-  color: string;
   plate: string;
-  power: number;
+  amount: number;
   renavam: string;
-  userId: number;
-  refuelings: any[];
+  fuelType: number;
+  price: number;
+  vehicle: any[];
   createdAt: string;
 }
 
-interface VehicleDataGridProps {
-  vehicles: Vehicle[];
+interface FuelDataGridProps {
+  fueling: Fuel[];
   onVehicleSelect: (vehicleId: any | null) => void;
 }
 
 const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'brand', headerName: 'Marca', width: 130 },
   { field: 'model', headerName: 'Modelo', width: 130 },
-  { field: 'color', headerName: 'Cor', width: 130 },
   { field: 'plate', headerName: 'Placa', width: 130 },
-  { field: 'power', headerName: 'Potência', width: 130 },
-  { field: 'renavam', headerName: 'Renavam', width: 130 },
+  { field: 'amount', headerName: 'Quantidade de litros', width: 170 },
+  { field: 'fuelType', headerName: 'Tipo gás', width: 130 },
+  { field: 'price', headerName: 'Preço', width: 130 },
   {
     field: 'createdAt',
     headerName: 'Data de criação',
@@ -39,7 +35,7 @@ const columns: GridColDef[] = [
 ];
 
 
-export const VehicleDataGrid: React.FC<VehicleDataGridProps> = ({ vehicles, onVehicleSelect }) => {
+export const FuelDataGrid: React.FC<FuelDataGridProps> = ({ fueling, onVehicleSelect }) => {
   
   const handleSelectionModelChange = (newSelection: GridRowId[]) => {
     const selectedVehicleIds = newSelection.map((selection) => Number(selection));
@@ -49,7 +45,7 @@ export const VehicleDataGrid: React.FC<VehicleDataGridProps> = ({ vehicles, onVe
   return (
     <div style={{ height: 500, width: '100%' }}>
       <DataGrid
-        rows={vehicles}
+        rows={fueling}
         columns={columns}
         checkboxSelection
         onRowSelectionModelChange={handleSelectionModelChange}

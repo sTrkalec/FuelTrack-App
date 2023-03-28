@@ -13,13 +13,13 @@ export function Header() {
       <nav className="nav">
         <ul className="nav-list">
           <li className="nav-item">
-            <Link to="/veiculos" className="nav-link">
+            <Link to="/dashboard" className="nav-link">
               Veículos
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/abastecimento" className="nav-link">
-              Abastecimento
+            <Link to="/fuel" className="nav-link">
+              Abastecimentos
             </Link>
           </li>
         </ul>
