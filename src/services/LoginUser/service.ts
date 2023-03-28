@@ -11,16 +11,7 @@ const api = axios.create({
   },
 });
 
-// ...
-
-
-
-
-
-
 export const LoginUser = async (cpf: string, password: string) => {
-  console.log(apiBaseUrl)
-
   try {
     const response = await api.post( `/users/login` , { cpf:cpf, password:password }); // Substitua '/login' pelo endpoint correto da sua API
     return response.data;

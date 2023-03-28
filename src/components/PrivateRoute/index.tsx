@@ -34,6 +34,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({ isAuthenticated }) =
     return <Navigate to="/login" replace />;
   }
   else {
-    return <Outlet />;
+    return <Navigate to="/dashboard" replace />;
+
   }
 };
