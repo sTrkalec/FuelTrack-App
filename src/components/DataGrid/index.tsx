@@ -47,7 +47,7 @@ export const VehicleDataGrid: React.FC<VehicleDataGridProps> = ({ vehicles, onVe
   };
 
   return (
-    <div style={{ height: 500, width: '100%' }}>
+    <div style={{ height: "80vh", width: '100%' }}>
       <DataGrid
         rows={vehicles}
         columns={columns}

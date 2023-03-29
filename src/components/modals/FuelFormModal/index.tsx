@@ -70,10 +70,10 @@ export const FuelFormModal: React.FC<{ open: boolean; onClose: () => void; id: n
                         value={newFuel.fuelType}
                         onChange={(e) => setNewFuel({ ...newFuel, fuelType: e.target.value as string })}
                     >
-                        <MenuItem value="gasolina">Gasolina</MenuItem>
-                        <MenuItem value="alcool">Álcool</MenuItem>
-                        <MenuItem value="diesel">Diesel</MenuItem>
-                        <MenuItem value="gnv">GNV</MenuItem>
+                        <MenuItem value="Gasolina">Gasolina</MenuItem>
+                        <MenuItem value="Álcool">Álcool</MenuItem>
+                        <MenuItem value="Diesel">Diesel</MenuItem>
+                        <MenuItem value="GNV">GNV</MenuItem>
                     </Select>
                 </FormControl>
                 <TextField

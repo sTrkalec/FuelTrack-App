@@ -11,7 +11,17 @@ interface Fuel {
   renavam: string;
   fuelType: number;
   price: number;
-  vehicle: any[];
+  vehicle: {
+    id: number;
+    plate: string;
+    renavam: string;
+    color: string;
+    power: number;
+    model: string;
+    brand: string;
+    userId: number;
+    createdAt: string;
+  };
   createdAt: string;
 }
 
@@ -21,11 +31,26 @@ interface FuelDataGridProps {
 }
 
 const columns: GridColDef[] = [
-  { field: 'model', headerName: 'Modelo', width: 130 },
-  { field: 'plate', headerName: 'Placa', width: 130 },
-  { field: 'amount', headerName: 'Quantidade de litros', width: 170 },
-  { field: 'fuelType', headerName: 'Tipo gás', width: 130 },
-  { field: 'price', headerName: 'Preço', width: 130 },
+  {
+    field: 'vehicle.model',
+    headerName: 'Modelo',
+    width: 130,
+    valueGetter: (params) => params.row.vehicle?.model ?? '',
+  },
+  {
+    field: 'vehicle.plate',
+    headerName: 'Placa',
+    width: 130,
+    valueGetter: (params) => params.row.vehicle?.plate ?? '',
+  },
+  { field: 'amount', headerName: 'Quantidade de litros', width: 170 ,  align: 'center'},
+  { field: 'fuelType', headerName: 'Tipo gás', width: 130},
+  {
+    field: 'price',
+    headerName: 'Preço',
+    width: 130,
+    valueFormatter: (params) => `R$ ${params.value}`,
+  },
   {
     field: 'createdAt',
     headerName: 'Data de criação',
@@ -43,7 +68,7 @@ export const FuelDataGrid: React.FC<FuelDataGridProps> = ({ fueling, onVehicleSe
   };
 
   return (
-    <div style={{ height: 500, width: '100%' }}>
+    <div style={{ height: "80vh", width: '100%' }}>
       <DataGrid
         rows={fueling}
         columns={columns}

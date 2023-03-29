@@ -164,15 +164,6 @@ export function Home() {
           buttonText="Cancelar"
         />
 
-
-        <ConfirmDeleteModal
-          open={deleteModalOpen}
-          onClose={handleCloseDeleteModal}
-          onSubmit={handleDeleteVehicle}
-          message="Tem certeza de que deseja apagar o veículo selecionado?"
-          buttonText="Cancelar"
-        />
-
         <EditVehicleModal open={editModalOpen} onClose={handleEditCloseModal} onRefresh={test} id={selectedVehicleIds} />
       </div>
     </div>
