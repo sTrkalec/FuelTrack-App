@@ -92,9 +92,9 @@ export const EditVehicleModal: React.FC<{ open: boolean; onClose: () => void; on
   }
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} classes={{ paper: 'custom-dialog-vehicle' }}>
       <DialogTitle>Editar Veículo</DialogTitle>
-      <DialogContent>
+      <DialogContent className="custom-dialog-content">
         <TextField
           label="Marca"
           fullWidth
@@ -167,8 +167,9 @@ export const EditVehicleModal: React.FC<{ open: boolean; onClose: () => void; on
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCancel}>Cancelar</Button>
+        <Button className="buttonCancel" onClick={handleCancel}>Cancelar</Button>
         <Button
+          className="buttonSave"
           variant="contained"
           color="primary"
           onClick={() => setVehicle(newVehicle)}

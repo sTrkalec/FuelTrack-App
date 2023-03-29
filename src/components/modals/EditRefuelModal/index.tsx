@@ -59,7 +59,7 @@ export const EditRefuelModal: React.FC<{ open: boolean; onClose: () => void; onR
             fuelType: "",
             price: 0,
             vehicleId: 0,
-            
+
         });
         onClose();
     };
@@ -76,9 +76,9 @@ export const EditRefuelModal: React.FC<{ open: boolean; onClose: () => void; onR
     }
 
     return (
-        <Dialog open={open} onClose={onClose}>
+        <Dialog open={open} onClose={onClose} classes={{ paper: 'custom-dialog' }}>
             <DialogTitle>Editar Abastecimento</DialogTitle>
-            <DialogContent>
+            <DialogContent className="custom-dialog-content">
                 <TextField
                     label="Quantidade de Combustível"
                     fullWidth
@@ -89,6 +89,7 @@ export const EditRefuelModal: React.FC<{ open: boolean; onClose: () => void; onR
                 <FormControl fullWidth>
                     <InputLabel>Tipo de Combustível</InputLabel>
                     <Select
+                        id="fuel-type-select"
                         value={newRefuel.fuelType}
                         onChange={(e) => setNewRefuel({ ...newRefuel, fuelType: e.target.value as string })}
                     >
@@ -107,8 +108,10 @@ export const EditRefuelModal: React.FC<{ open: boolean; onClose: () => void; onR
                 />
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleCancel}>Cancelar</Button>
+                <Button className="buttonCancel"
+                    onClick={handleCancel}>Cancelar</Button>
                 <Button
+                    className="buttonSave"
                     variant="contained"
                     color="primary"
                     onClick={() => saveRefuel(newRefuel)}

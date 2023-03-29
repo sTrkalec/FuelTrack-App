@@ -1,7 +1,8 @@
 // components/VehicleDataGrid.tsx
 import * as React from 'react';
-import { DataGrid, GridColDef, GridRenderCellParams, GridRowId } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRowId } from '@mui/x-data-grid';
 import moment from "moment";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 interface Vehicle {
@@ -38,22 +39,29 @@ const columns: GridColDef[] = [
   },
 ];
 
+const customTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 export const VehicleDataGrid: React.FC<VehicleDataGridProps> = ({ vehicles, onVehicleSelect }) => {
-  
+
   const handleSelectionModelChange = (newSelection: GridRowId[]) => {
     const selectedVehicleIds = newSelection.map((selection) => Number(selection));
     onVehicleSelect(selectedVehicleIds);
   };
 
   return (
-    <div style={{ height: "80vh", width: '100%' }}>
-      <DataGrid
-        rows={vehicles}
-        columns={columns}
-        checkboxSelection
-        onRowSelectionModelChange={handleSelectionModelChange}
-      />
+    <div style={{ height: "85vh" }}>
+      <ThemeProvider theme={customTheme}>
+        <DataGrid
+          rows={vehicles}
+          columns={columns}
+          checkboxSelection
+          onRowSelectionModelChange={handleSelectionModelChange}
+        />
+      </ThemeProvider>
     </div>
   );
 };

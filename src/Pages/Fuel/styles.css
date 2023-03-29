@@ -1,15 +1,14 @@
-.buttons-home button {
-    margin: 1rem 0 1rem 0.5rem;
-}
-
-.buttons-home {
+.refuel-buttons {
     display: flex;
     flex-direction: row-reverse;
     overflow-x: auto;
-
 }
 
-.buttons-home .home-button:hover {
+.refuel-buttons button {
+    margin: 1rem 0 1rem 0.5rem;
+}
+
+.buttons-refuel:hover {
     opacity: 0.6;
     transition: opacity 0.4s !important;
 }

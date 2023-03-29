@@ -13,9 +13,9 @@ export function ConfirmDeleteModal({open, onClose, onSubmit, message, buttonText
 
     return (
         <>
-            <Dialog open={open} onClose={onClose}>
+            <Dialog open={open} onClose={onClose}classes={{ paper: 'custom-dialog-delete ' }}>
                 <DialogTitle>Apagar veículo</DialogTitle>
-                <DialogContent>
+                <DialogContent className="custom-dialog-content-delete">
                     <DialogContentText>
                         {message}
                     </DialogContentText>

@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, TextField } from "@mui/material";
 import { chown } from "fs";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -124,6 +124,37 @@ export function Home() {
 
   return (
     <div>
+
+      <div className="buttons-home">
+
+        <Button variant="contained" style={{ backgroundColor: 'green', color: 'white' }} className="home-button" onClick={handleOpenModal}>
+          Novo veículo
+        </Button>
+
+        <Slide in={selectedVehicleIds.length !== 0} direction="left">
+          <Button variant="contained" style={{ backgroundColor: 'red', color: 'white' }} className="home-button" onClick={handleOpenDeleteModal}>
+            Apagar
+          </Button>
+        </Slide>
+
+
+
+        <Slide in={selectedVehicleIds.length !== 0} direction="left">
+          <Button variant="contained" style={{ backgroundColor: 'orange', color: 'white' }} className="home-button"
+            onClick={handleOpenRefuelModal}>
+            Abastecer
+          </Button>
+        </Slide>
+
+        <Slide in={selectedVehicleIds.length == 1} direction="left">
+          <Button variant="contained" style={{ backgroundColor: 'blue', color: 'white' }} className="home-button"
+            onClick={handleEditModal}>
+            Editar
+          </Button>
+        </Slide>
+
+      </div>
+
       <div className="grid">
         <VehicleDataGrid vehicles={userVehicles} onVehicleSelect={handleVehicleSelect} />
       </div>
@@ -135,37 +166,15 @@ export function Home() {
       <FuelFormModal open={openRefueModal} onClose={handleRefuelCloseModal} id={selectedVehicleIds} />
 
 
-      <div className="buttons">
+      <ConfirmDeleteModal
+        open={deleteModalOpen}
+        onClose={handleCloseDeleteModal}
+        onSubmit={handleDeleteVehicle}
+        message="Tem certeza de que deseja apagar o veículo selecionado?"
+        buttonText="Cancelar"
+      />
 
-        <Button variant="contained" onClick={handleOpenModal}>
-          Novo veículo
-        </Button>
-
-        <Button variant="contained" color="error" onClick={handleOpenDeleteModal} disabled={selectedVehicleIds.length == 0}>
-          Apagar
-        </Button>
-
-        <Button variant="contained" color="warning" disabled={selectedVehicleIds.length !== 1}
-          onClick={handleEditModal}>
-          Editar
-        </Button>
-
-        <Button variant="contained" color="warning" disabled={selectedVehicleIds.length == 0}
-          onClick={handleOpenRefuelModal}>
-          Abastecer
-        </Button>
-
-
-        <ConfirmDeleteModal
-          open={deleteModalOpen}
-          onClose={handleCloseDeleteModal}
-          onSubmit={handleDeleteVehicle}
-          message="Tem certeza de que deseja apagar o veículo selecionado?"
-          buttonText="Cancelar"
-        />
-
-        <EditVehicleModal open={editModalOpen} onClose={handleEditCloseModal} onRefresh={test} id={selectedVehicleIds} />
-      </div>
+      <EditVehicleModal open={editModalOpen} onClose={handleEditCloseModal} onRefresh={test} id={selectedVehicleIds} />
     </div>
   );
 }

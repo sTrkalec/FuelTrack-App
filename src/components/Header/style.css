@@ -1,5 +1,5 @@
 .header {
-  background-color: #f8f8f8;
+  background-color: #20212b;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1rem 2rem;
 }
@@ -27,10 +27,10 @@
 
 .nav-link {
   text-decoration: none;
-  color: #333;
+  color: #7b80a1;
   transition: color 0.2s;
 }
 
 .nav-link:hover {
-  color: #007bff;
+  color: #50fa7b;
 }

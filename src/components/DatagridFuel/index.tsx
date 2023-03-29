@@ -2,6 +2,8 @@
 import * as React from 'react';
 import { DataGrid, GridColDef, GridRowId } from '@mui/x-data-grid';
 import moment from "moment";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 
 interface Fuel {
@@ -30,6 +32,12 @@ interface FuelDataGridProps {
   onVehicleSelect: (vehicleId: any | null) => void;
 }
 
+const customTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
 const columns: GridColDef[] = [
   {
     field: 'vehicle.model',
@@ -43,8 +51,8 @@ const columns: GridColDef[] = [
     width: 130,
     valueGetter: (params) => params.row.vehicle?.plate ?? '',
   },
-  { field: 'amount', headerName: 'Quantidade de litros', width: 170 ,  align: 'center'},
-  { field: 'fuelType', headerName: 'Tipo gás', width: 130},
+  { field: 'amount', headerName: 'Quantidade de litros', width: 170, align: 'center' },
+  { field: 'fuelType', headerName: 'Tipo gás', width: 130 },
   {
     field: 'price',
     headerName: 'Preço',
@@ -61,20 +69,24 @@ const columns: GridColDef[] = [
 
 
 export const FuelDataGrid: React.FC<FuelDataGridProps> = ({ fueling, onVehicleSelect }) => {
-  
+
   const handleSelectionModelChange = (newSelection: GridRowId[]) => {
     const selectedVehicleIds = newSelection.map((selection) => Number(selection));
     onVehicleSelect(selectedVehicleIds);
   };
 
   return (
-    <div style={{ height: "80vh", width: '100%' }}>
-      <DataGrid
-        rows={fueling}
-        columns={columns}
-        checkboxSelection
-        onRowSelectionModelChange={handleSelectionModelChange}
-      />
+    <div style={{ height: "85vh", width: '100%' }}>
+      <ThemeProvider theme={customTheme}>
+        <DataGrid
+          rows={fueling}
+          columns={columns}
+          checkboxSelection
+          onRowSelectionModelChange={handleSelectionModelChange}
+        />
+      </ThemeProvider>
+
+
     </div>
   );
 };

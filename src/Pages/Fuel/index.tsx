@@ -1,17 +1,19 @@
-import { Button } from "@mui/material";
+import { Button, Slide } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FuelDataGrid } from "../../components/DatagridFuel";
+import { ConfirmDeleteModal } from "../../components/modals/ConfirmDeleteModal";
 import { EditRefuelModal } from "../../components/modals/EditRefuelModal";
-import { EditVehicleModal } from "../../components/modals/EditVehicleModal";
-import { getUserFuel } from "../../services/Fuel/service";
-
+import { deleteRefuel, getUserFuel } from "../../services/Fuel/service";
+import "./styles.css";
 
 export function Fuel() {
     const [isAuthChecked, setIsAuthChecked] = useState(false);
-    const [userVehicles, setUserVehicles] = useState([]); // Adicionar estado para armazenar os veículos do usuário
-    const [selectedVehicleIds, setSelectedVehicleIds] = useState<number[]>([]);
+    const [userRefuels, setUserRefuels] = useState([]); // Adicionar estado para armazenar os veículos do usuário
+    const [selectedRefuelIds, setSelectedRefuelIds] = useState<number[]>([]);
     const [editModalOpen, setEditdalOpen] = useState(false);
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
 
 
     const navigate = useNavigate();
@@ -31,7 +33,7 @@ export function Fuel() {
     };
 
     const handleVehicleSelect = (vehicleIds: number[]) => {
-        setSelectedVehicleIds(vehicleIds);
+        setSelectedRefuelIds(vehicleIds);
     };
 
 
@@ -45,7 +47,7 @@ export function Fuel() {
             } else {
                 try {
                     const fetchedUserVehicles = await getUserFuel();
-                    setUserVehicles(fetchedUserVehicles);
+                    setUserRefuels(fetchedUserVehicles);
                 } catch (error) {
                     console.error('Erro ao buscar veículos do usuário:', error);
                 }
@@ -60,9 +62,26 @@ export function Fuel() {
         return null; // Não renderiza nada até a verificação de autenticação ser concluída
     }
 
+
+    const handleDeleteVehicle = async () => {
+        try {
+            setDeleteModalOpen(false);
+
+            await Promise.all(selectedRefuelIds.map(async (vehicleId) => {
+                await deleteRefuel(vehicleId);
+            }));
+
+            const fetchedUserVehicles = await getUserFuel();
+            setUserRefuels(fetchedUserVehicles);
+
+        } catch (error) {
+            console.error('Erro ao apagar veículo:', error);
+        }
+    };
+
     const test = async () => {
         const fetchedUserVehicles = await getUserFuel();
-        setUserVehicles(fetchedUserVehicles);
+        setUserRefuels(fetchedUserVehicles);
     }
 
     const handleEditModal = () => {
@@ -74,17 +93,61 @@ export function Fuel() {
         setEditdalOpen(false);
     };
 
+    const handleOpenDeleteModal = () => {
+        setDeleteModalOpen(true);
+    };
+
+    const handleCloseDeleteModal = () => {
+        setDeleteModalOpen(false);
+    };
+
+
     return (
         <>
-            <FuelDataGrid fueling={userVehicles} onVehicleSelect={handleVehicleSelect} />
 
-            <EditRefuelModal open={editModalOpen} onClose={handleEditCloseModal} id={selectedVehicleIds}  onRefresh={test} />
+            <div className="refuel-buttons">
+                <Slide in={selectedRefuelIds.length === 1} direction="left">
+                    <div>
+                        <Button
+                            variant="contained"
+                            className="buttons-refuel"
+                            style={{ backgroundColor: 'blue', color: 'white' }} 
+                            disabled={selectedRefuelIds.length !== 1}
+                            onClick={handleEditModal}
+                        >
+                            Editar
+                        </Button>
+                    </div>
+                </Slide>
 
-            <Button variant="contained" color="warning"
-                disabled={selectedVehicleIds.length != 1}
-                onClick={handleEditModal}>
-                Editar
-            </Button>
+                <Slide in={selectedRefuelIds.length > 0} direction="left">
+                    <div>
+                        <Button
+                            variant="contained"
+                            className="buttons-refuel"
+                            style={{ backgroundColor: 'red', color: 'white' }} 
+                            onClick={handleOpenDeleteModal}
+                            disabled={selectedRefuelIds.length === 0}
+                        >
+                            Apagar
+                        </Button>
+                    </div>
+                </Slide>
+            </div>
+
+            <FuelDataGrid fueling={userRefuels} onVehicleSelect={handleVehicleSelect} />
+
+            <EditRefuelModal open={editModalOpen} onClose={handleEditCloseModal} id={selectedRefuelIds} onRefresh={test} />
+
+            <ConfirmDeleteModal
+                open={deleteModalOpen}
+                onClose={handleCloseDeleteModal}
+                onSubmit={handleDeleteVehicle}
+                message="Tem certeza de que deseja apagar o veículo selecionado?"
+                buttonText="Cancelar"
+            />
+
+
         </>
     );
 }

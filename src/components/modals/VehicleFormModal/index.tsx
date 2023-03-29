@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { type } from "os";
-import { useState } from "react"; 
+import { useState } from "react";
 import { setUserVehicle } from "../../../services/Home/services";
 7
 
@@ -37,10 +37,10 @@ export const VehicleFormModal: React.FC<{ open: boolean; onClose: () => void; on
     try {
       console.log(data.color)
       let setVehicle: object = await setUserVehicle(data.plate, data.renavam, data.color, Number(data.power), data.model, data.brand)
-      console.log(setVehicle) 
+      console.log(setVehicle)
       onRefresh(); // atualiza a lista de veículos
       handleClose(); // fecha o modal
-    } catch (error:unknown) {
+    } catch (error: unknown) {
       const customError = error as CustomError;
 
       alert(customError.message)
@@ -80,9 +80,9 @@ export const VehicleFormModal: React.FC<{ open: boolean; onClose: () => void; on
   }
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} classes={{ paper: 'custom-dialog-vehicle' }}>
       <DialogTitle>Criar novo veículo</DialogTitle>
-      <DialogContent>
+      <DialogContent className="custom-dialog-content">
         <TextField
           label="Marca"
           fullWidth
@@ -155,8 +155,9 @@ export const VehicleFormModal: React.FC<{ open: boolean; onClose: () => void; on
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCancel}>Cancelar</Button>
+        <Button className="buttonCancel" onClick={handleCancel}>Cancelar</Button>
         <Button
+          className="buttonSave"
           variant="contained"
           color="primary"
           onClick={() => setVehicle(newVehicle)}

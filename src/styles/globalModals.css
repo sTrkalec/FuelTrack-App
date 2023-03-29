@@ -1,0 +1,55 @@
+.custom-dialog {
+    background-color: #21232c !important;
+    height: 350px;
+    text-align: center;
+    color: white !important;
+}
+
+.custom-dialog-delete {
+    background-color: #21232c !important;
+    height: 200;
+    text-align: center;
+    color: white !important;
+}
+
+.custom-dialog-content-delete p{
+    color: rgb(179, 179, 179) !important;
+}
+
+.custom-dialog-vehicle {
+    background-color: #21232c !important;
+    height: 600px;
+    text-align: center;
+    color: white !important;
+}
+
+.custom-dialog-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+}
+
+
+.custom-dialog-content label {
+    color: #50fa7b;
+}
+
+.custom-dialog-content input {
+    color: #bd93f9;
+}
+
+.custom-dialog-content #fuel-type-select {
+    color: #bd93f9;
+}
+
+
+
+.buttonSave {
+    background-color: green !important;
+}
+
+.buttonCancel {
+    background-color: red !important;
+    color: white !important;
+}

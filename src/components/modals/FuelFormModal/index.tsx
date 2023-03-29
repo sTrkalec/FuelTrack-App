@@ -34,7 +34,7 @@ export const FuelFormModal: React.FC<{ open: boolean; onClose: () => void; id: n
         try {
             console.log(data);
             await Promise.all(id.map(async (vehicleId) => {
-                
+
                 await setRefuel(vehicleId, Number(data.amount), data.fuelType, Number(data.price));
             }));
             handleClose(); // fecha o modal
@@ -54,9 +54,9 @@ export const FuelFormModal: React.FC<{ open: boolean; onClose: () => void; id: n
     };
 
     return (
-        <Dialog open={open} onClose={onClose}>
+        <Dialog open={open} onClose={onClose} classes={{ paper: 'custom-dialog' }}>
             <DialogTitle>Registrar abastecimento</DialogTitle>
-            <DialogContent>
+            <DialogContent className="custom-dialog-content">
                 <TextField
                     label="Quantidade (L)"
                     fullWidth
@@ -67,6 +67,7 @@ export const FuelFormModal: React.FC<{ open: boolean; onClose: () => void; id: n
                 <FormControl fullWidth>
                     <InputLabel>Tipo de Combustível</InputLabel>
                     <Select
+                        id="fuel-type-select"
                         value={newFuel.fuelType}
                         onChange={(e) => setNewFuel({ ...newFuel, fuelType: e.target.value as string })}
                     >
@@ -85,8 +86,9 @@ export const FuelFormModal: React.FC<{ open: boolean; onClose: () => void; id: n
                 />
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>Cancelar</Button>
+                <Button className="buttonCancel" onClick={handleClose}>Cancelar</Button>
                 <Button
+                    className="buttonSave"
                     variant="contained"
                     color="primary"
                     onClick={() => setFuelData(newFuel)}

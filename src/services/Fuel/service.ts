@@ -46,3 +46,14 @@ export const editRefuelId = async (id:number,idVehicle:number, amount: number, f
     throw error.response?.data || new Error('Ocorreu um erro ao realizar o login');
   }
 };
+
+export const deleteRefuel = async (id:number) => {
+  const api = createApiInstance();
+
+  try {
+    const response = await api.delete( `/refueling/${id}`); // Substitua '/login' pelo endpoint correto da sua API
+    return response.data;
+  } catch (error:any) {
+    throw error.response?.data || new Error('Ocorreu um erro ao realizar o login');
+  }
+};
