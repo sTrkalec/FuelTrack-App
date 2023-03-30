@@ -81,3 +81,28 @@ export const setRefuel = async (id:number, amount: number,  fuelType: string, pr
     throw error.response?.data || new Error('Ocorreu um erro ao realizar o login');
   }
 };
+
+
+export const deleteUser = async (id:number)=> {
+  const api = createApiInstance();
+
+  try {
+    const response = await api.delete(`/users/${id}`);
+    // Substitua '/login' pelo endpoint correto da sua API
+    return response.data;
+  } catch (error:any) {
+    throw error.response?.data || new Error('Ocorreu um erro ao realizar o login');
+  }
+};
+
+export const editUser = async (id:number, cpf: string, password: string)=> {
+  const api = createApiInstance();
+
+  try {
+    const response = await api.put(`/users/${id}` , {cpf, password});
+    // Substitua '/login' pelo endpoint correto da sua API
+    return response.data;
+  } catch (error:any) {
+    throw error.response?.data || new Error('Ocorreu um erro ao realizar o login');
+  }
+};

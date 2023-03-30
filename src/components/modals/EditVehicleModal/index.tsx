@@ -42,7 +42,6 @@ export const EditVehicleModal: React.FC<{ open: boolean; onClose: () => void; on
         setNewVehicle(setVehicle as Vehicle)
       }
   
-      console.log("CAIU AQHDUWAUIHD")
       fetchVehicle()
     }
   }, [open])

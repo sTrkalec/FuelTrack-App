@@ -42,7 +42,6 @@ export const EditRefuelModal: React.FC<{ open: boolean; onClose: () => void; onR
     const saveRefuel = async (data: Refuel) => {
         try {
             await editRefuelId(data.id, data.vehicleId,Number( data.amount), data.fuelType, Number(data.price));
-            console.log(data, "data do modal");
             onRefresh();
             handleClose();
         } catch (error: unknown) {

@@ -118,7 +118,6 @@ export default function Login() {
     async function submitDataForm(data: LoginFormInput) {
         try {
             const responseData = await LoginUser(data.cpf, data.password);
-            console.log(responseData.token)
             let token = responseData.token;
             sessionStorage.setItem('token', token);
 

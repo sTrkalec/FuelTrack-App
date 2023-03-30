@@ -35,9 +35,7 @@ export const VehicleFormModal: React.FC<{ open: boolean; onClose: () => void; on
 
   const setVehicle = async (data: Vehicle) => {
     try {
-      console.log(data.color)
       let setVehicle: object = await setUserVehicle(data.plate, data.renavam, data.color, Number(data.power), data.model, data.brand)
-      console.log(setVehicle)
       onRefresh(); // atualiza a lista de veículos
       handleClose(); // fecha o modal
     } catch (error: unknown) {

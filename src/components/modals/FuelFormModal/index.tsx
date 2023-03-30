@@ -32,7 +32,6 @@ export const FuelFormModal: React.FC<{ open: boolean; onClose: () => void; id: n
 
     const setFuelData = async (data: Fuel) => {
         try {
-            console.log(data);
             await Promise.all(id.map(async (vehicleId) => {
 
                 await setRefuel(vehicleId, Number(data.amount), data.fuelType, Number(data.price));

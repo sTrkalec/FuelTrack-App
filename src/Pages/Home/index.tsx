@@ -44,7 +44,6 @@ export function Home() {
   useEffect(() => {
     const handleStorageChange = async () => {
       let token = sessionStorage.getItem('token');
-
       if (!token || isTokenExpired(token)) {
         console.log(token ? 'Token expirado' : 'Não possui token');
         navigate('/login');
