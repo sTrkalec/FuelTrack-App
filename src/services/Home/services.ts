@@ -6,7 +6,7 @@ const apiBaseUrl = import.meta.env.VITE_BASE_URL;
 const createApiInstance = () => {
   const token = sessionStorage.getItem('token');
   return axios.create({
-    baseURL: apiBaseUrl || 'https://your-api-url.com',
+    baseURL: apiBaseUrl || 'http://localhost:5000/',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token ? `Bearer ${token}` : undefined,

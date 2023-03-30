@@ -8,6 +8,12 @@
 
 </div>
 
+<br>
+<div align="center">
+  <img src='./public/te.gif'>
+</div>
+<br>
+
 
 
 ## Descrição
