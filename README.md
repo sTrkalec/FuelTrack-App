@@ -1,5 +1,15 @@
 # FuelTrack
 
+<br/>
+
+<div align="center">
+
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+</div>
+
+
+
 ## Descrição
 
 FuelTrack é uma aplicação web para o gerenciamento de veículos e abastecimentos. Com ela é possível cadastrar veículos, adicionar e visualizar abastecimentos e monitorar o desempenho dos veículos em termos de consumo de combustível.
