@@ -4,9 +4,9 @@ import { editRefuelId, getRefuelById } from "../../../services/Fuel/service";
 
 interface Refuel {
     id: number,
-    amount: number,
+    amount: number | null,
     fuelType: string,
-    price: number,
+    price: number | null,
     vehicleId: number,
 }
 
@@ -41,7 +41,7 @@ export const EditRefuelModal: React.FC<{ open: boolean; onClose: () => void; onR
 
     const saveRefuel = async (data: Refuel) => {
         try {
-            await editRefuelId(data.id, data.vehicleId, data.amount, data.fuelType, data.price);
+            await editRefuelId(data.id, data.vehicleId,Number( data.amount), data.fuelType, Number(data.price));
             console.log(data, "data do modal");
             onRefresh();
             handleClose();
@@ -80,12 +80,11 @@ export const EditRefuelModal: React.FC<{ open: boolean; onClose: () => void; onR
             <DialogTitle>Editar Abastecimento</DialogTitle>
             <DialogContent className="custom-dialog-content">
                 <TextField
-                    label="Quantidade de Combustível"
+                    label="Quantidade (L)"
                     fullWidth
-                    placeholder="50"
-                    value={newRefuel.amount}
-                    onChange={(e) => setNewRefuel({ ...newRefuel, amount: Number(e.target.value) })}
-                />
+                    value={newRefuel.amount === null ? "" : newRefuel.amount}
+                    onChange={(e) => setNewRefuel({ ...newRefuel, amount: e.target.value !== "" ? parseFloat(e.target.value) : null })}
+                    type="number"         />
                 <FormControl fullWidth>
                     <InputLabel>Tipo de Combustível</InputLabel>
                     <Select
@@ -100,11 +99,11 @@ export const EditRefuelModal: React.FC<{ open: boolean; onClose: () => void; onR
                     </Select>
                 </FormControl>
                 <TextField
-                    label="Preço"
-                    placeholder="100"
+                    label="Preço (R$)"
                     fullWidth
-                    value={newRefuel.price}
-                    onChange={(e) => setNewRefuel({ ...newRefuel, price: Number(e.target.value) })}
+                    value={newRefuel.price === null ? "" : newRefuel.price}
+                    onChange={(e) => setNewRefuel({ ...newRefuel, price: e.target.value !== "" ? parseFloat(e.target.value) : null })}
+                    type="number"
                 />
             </DialogContent>
             <DialogActions>

@@ -1,0 +1,25 @@
+.main {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.main form label{
+    color: white;
+}
+.main form input{
+    color: white;
+}
+
+h4{
+    color: white;
+}
+
+.container{
+    display: flex !important;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 400px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+}

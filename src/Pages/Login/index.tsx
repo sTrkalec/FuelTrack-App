@@ -9,14 +9,21 @@ import {
     Typography,
     Grid,
     Link,
+    Dialog,
+    DialogTitle,
+    DialogContent,
 } from '@mui/material';
 import { LoginUser } from '../../services/LoginUser/service';
 import { Navigate } from 'react-router-dom';
+import './style.css';
+import { UserRegistrationModal } from '../../components/modals/RegisterUserModal';
 
 export default function Login() {
 
     const [cpfError, setCpfError] = useState<string | null>(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [registerUserModalOpen, setRegisterUserModalOpen] = useState(false);
+
 
     const validateCPF = (cpf: any) => {
         let sum = 0;
@@ -126,54 +133,67 @@ export default function Login() {
                 setIsAuthenticated(true); // atualiza a variável de estado para true
             }
         } catch (error: any) {
-            console.error('Erro ao realizar login:', error.message);
+            alert(error.message);
         }
     }
 
     // verifica se o usuário está autenticado e renderiza o componente Navigate se necessário
     if (isAuthenticated) {
         return <Navigate to="/dashboard" replace />;
-    }
+    }  
+
+
+
+    const handleRegisteUserOpenModal = () => {
+        setRegisterUserModalOpen(true);
+    };
+    const handleRegisteUserCloseModal = () => {
+        setRegisterUserModalOpen(false);
+    };
 
     return (
-        <Container maxWidth="xs">
-            <Typography variant="h4" align="center" sx={{ mb: 2 }}>
-                Login
-            </Typography>
-            <form onSubmit={handleSubmit(submitDataForm)}>
-                <TextField
-                    label="CPF"
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    required
-                    {...register('cpf')}
-                    error={cpfError ? true : false}
-                    helperText={cpfError || ''}
-                    onChange={handleCPFChange}
-                />
-                <TextField
-                    label="Senha"
-                    type="password"
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    required
-                    {...register('password')}
-                    error={errors.password ? true : false}
-                    helperText={errors.password ? errors.password.message : ''}
-                />
-                <Button type="submit" variant="contained" sx={{ mt: 2 }} fullWidth>
-                    Entrar
-                </Button>
-            </form>
-            <Grid container justifyContent="center" sx={{ mt: 2 }}>
-                <Grid item>
-                    <Link href="#" variant="body2">
-                        Registrar
-                    </Link>
+        <div className='main'>
+            <Container maxWidth="xs" className='container'>
+                <Typography variant="h4" align="center" sx={{ mb: 2 }}>
+                    Login
+                </Typography>
+                <form onSubmit={handleSubmit(submitDataForm)}>
+                    <TextField
+                        label="CPF"
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        required
+                        {...register('cpf')}
+                        error={cpfError ? true : false}
+                        helperText={cpfError || ''}
+                        onChange={handleCPFChange}
+                        autoComplete="username" // Adicionando o atributo autocomplete
+                    />
+                    <TextField
+                        label="Senha"
+                        type="password"
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        required
+                        {...register('password')}
+                        error={errors.password ? true : false}
+                        helperText={errors.password ? errors.password.message : ''}
+                        autoComplete="current-password" // Adicionando o atributo autocomplete
+                    />
+                    <Button className='buttonSave' type="submit" variant="contained" sx={{ mt: 2 }} fullWidth>
+                        Entrar
+                    </Button>
+                </form>
+                <Grid container justifyContent="center" sx={{ mt: 2 }}>
+                    <Grid item>
+                        <Button onClick={handleRegisteUserOpenModal}>Registrar</Button>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Container>
+            </Container>
+
+            <UserRegistrationModal open={registerUserModalOpen} onClose={handleRegisteUserCloseModal}  ></UserRegistrationModal>
+        </div>
     );
 }

@@ -127,8 +127,8 @@ export function Home() {
 
       <div className="buttons-home">
 
-        <Button variant="contained" style={{ backgroundColor: 'green', color: 'white' }} className="home-button" onClick={handleOpenModal}>
-          Novo veículo
+        <Button variant="contained" style={{ backgroundColor: 'green', color: 'white'}} className="home-button" onClick={handleOpenModal}>
+          Novo Veículo
         </Button>
 
         <Slide in={selectedVehicleIds.length !== 0} direction="left">

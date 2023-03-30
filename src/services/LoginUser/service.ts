@@ -19,3 +19,13 @@ export const LoginUser = async (cpf: string, password: string) => {
     throw error.response?.data || new Error('Ocorreu um erro ao realizar o login');
   }
 };
+
+export const RegisterUser = async (cpf: string, password: string) => {
+  try {
+    const response = await api.post( `/users/register` , { cpf:cpf, password:password }); // Substitua '/login' pelo endpoint correto da sua API
+    return response.data;
+  } catch (error:any) {
+    throw error.response?.data || new Error('Ocorreu um erro ao realizar o login');
+  }
+};
+
