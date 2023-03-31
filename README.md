@@ -42,6 +42,11 @@ FuelTrack é uma aplicação web para o gerenciamento de veículos e abastecimen
 4. Após rodar o backend conforme a documentação ensina, na pasta raiz do projeto do front, execute o comando `npm run dev` para iniciar o servidor e o cliente em modo de desenvolvimento
 5. Abra o navegador e acesse a URL `http://localhost:5173`
 
+## Link para acessar o projeto:
+```
+https://fuel-track-app.vercel.app/
+```
+
 
 ## Licença
 
