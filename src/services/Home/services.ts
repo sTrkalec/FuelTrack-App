@@ -6,7 +6,7 @@ const apiBaseUrl = import.meta.env.VITE_BASE_URL;
 const createApiInstance = () => {
   const token = sessionStorage.getItem('token');
   return axios.create({
-    baseURL: apiBaseUrl || 'http://localhost:5000/',
+    baseURL: apiBaseUrl || 'https://fueltrack.herokuapp.com/',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token ? `Bearer ${token}` : undefined,
