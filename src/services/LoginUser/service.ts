@@ -5,7 +5,7 @@ const apiBaseUrl = import.meta.env.VITE_BASE_URL;
 
 
 const api = axios.create({
-  baseURL: (apiBaseUrl) || 'https://fueltrack.herokuapp.com/',
+  baseURL: (apiBaseUrl) || 'https://fueltrack-api-production.up.railway.app/',
   headers: {
     'Content-Type': 'application/json',
   },
